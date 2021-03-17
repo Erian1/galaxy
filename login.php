@@ -18,10 +18,9 @@ if (isset($_POST['name'])) {
         $_SESSION['login'] = true;
         $_SESSION['user_id'] = $data['id'];
         $_SESSION['name'] = $data['name'];
-        exit();
+        header('location: dashboard.php');
     } else {
-        echo "Error";
-        exit();
+        $error = 'Crenditals are wrong!';
     }
 }
 
@@ -105,8 +104,11 @@ $conn->close();
 
     <div class="login-form">
         <div class="box">
+            <?php if($error): ?>
+            <p style="color: red;font-weight:bold;"><?=$error?></p>
+            <?php endif;?>
             <h2>Login</h2>
-            <form method="POST" action="dashboard.php">
+            <form method="POST" action="login.php">
                 <div class="inputBox">
                     <input type="text" name="name" required>
                     <label>Username</label>

@@ -4,11 +4,9 @@ require_once "config.php";
 
 include "inc/header.php";
 
-$query = $conn->query(' SELECT songs.user_id
-from songs inner join users on songs.user_id = users.id' 
-
-);
-
+$query = $conn->query('SELECT *
+FROM users
+INNER JOIN songs ON users.id=songs.user_id;');
 if (isset($_POST['song'])) {
     $sql = "INSERT INTO songs (user_id, song, cover, artist, songTitle, album) VALUES ('" . $_SESSION['user_id'] . "', '" . $_POST['song'] . "', '" . $_POST['cover'] . "', '" . $_POST['artist'] . "', '" . $_POST['songTitle'] . "', '" . $_POST['album'] . "')";
 
@@ -58,7 +56,6 @@ $conn->close();
 
 <body>
     <div class="container">
-        <?php echo $_SESSION['user_id']?>
         <form action="songs.php" method="POST">
             <div class="form align-items-center">
                 <div class="my-1">
